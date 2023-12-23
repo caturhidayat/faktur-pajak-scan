@@ -30,7 +30,6 @@ export default function Home() {
             });
 
             formik.resetForm();
-
         },
     });
 
@@ -57,27 +56,7 @@ export default function Home() {
                         placeholder='Klik disini Sebelum Scan QR Faktur Pajak'
                         disabled={formik.isSubmitting}
                     />
-                    <button type='submit' className='btn btn-accent'>
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1.5'
-                            stroke='currentColor'
-                            className='w-6 h-6'
-                        >
-                            <path
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                d='m4.5 12.75 6 6 9-13.5'
-                            />
-                        </svg>
-                        {formik.isSubmitting ? (
-                            <span className='loading loading-spinner loading-md'></span>
-                        ) : (
-                            "Validate"
-                        )}
-                    />
+
                     <button type='submit' className='btn btn-accent'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
