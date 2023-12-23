@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { useRef } from "react";
 import TableFaktur from "@/components/TableFaktur";
+import * as xlsx from "xlsx";
 
 export default function Home() {
     // table state type is like a TableFakturProps
@@ -27,10 +28,17 @@ export default function Home() {
             setTable((prev) => {
                 return [...prev, data];
             });
-            // console.log(data)
-            // setTable(data)
         },
     });
+
+    // Handle Export using xlsx library
+    const handleExport = () => {
+        const ws = xlsx.utils.json_to_sheet(table);
+        const wb = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+        xlsx.writeFile(wb, "faktur.xlsx");
+    };
+
     return (
         <div className='my-5'>
             <form onSubmit={formik.handleSubmit}>
@@ -51,7 +59,12 @@ export default function Home() {
                 </div>
             </form>
             <div className='flex justify-end px-10 py-4'>
-                <button className='btn btn-outline btn-accent'>Export</button>
+                <button
+                    onClick={handleExport}
+                    className='btn btn-outline btn-accent'
+                >
+                    Export
+                </button>
             </div>
             <div className='flex justify-end px-10 py-4'>
                 <p>Jumlah Data : {table.length} </p>
