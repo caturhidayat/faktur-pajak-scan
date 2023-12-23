@@ -3,10 +3,10 @@ export interface TableFakturProps {
     "FM": string
     "KD JENIS TRANSAKSI": string
     "FG PENGGANTI": string
-    "NOMOR FAKTUR": string
+    "NOMOR FAKTUR": number
     "MASA PAJAK": string
     "TAHUN PAJAK": string
-    "TANGGAL FAKTUR": Date | string
+    "TANGGAL FAKTUR": Date 
     "NPWP": string
     "NAMA": string
     "ALAMAT LENGKAP": string

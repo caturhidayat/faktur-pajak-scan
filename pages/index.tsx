@@ -3,28 +3,32 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { useRef } from "react";
 import TableFaktur from "@/components/TableFaktur";
-import { url } from "inspector";
 
 export default function Home() {
-    const [table, setTable] = useState([] as TableFakturProps[]);
+    // table state type is like a TableFakturProps
+    const [table, setTable] = useState<TableFakturProps[]>([]);
+
     const refTable = useRef(null);
     const formik = useFormik({
         initialValues: {
             urlValidate: "",
         },
         onSubmit: async (values) => {
-            // console.log(values.urlValidate);
-            // const url = values.urlValidate;
             const res = await fetch("/api/faktur", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/xml",
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({url: values.urlValidate}),
+                body: JSON.stringify({ url: values.urlValidate }),
             });
-            console.log(res);
+            // console.log(res);
             const data = await res.json();
             console.log(data);
+            setTable((prev) => {
+                return [...prev, data];
+            });
+            // console.log(data)
+            // setTable(data)
         },
     });
     return (
@@ -39,7 +43,7 @@ export default function Home() {
                         ref={refTable}
                         onChange={formik.handleChange}
                         value={formik.values.urlValidate}
-                        placeholder='Scan QR Faktur Pajak'
+                        placeholder='Klik disini Sebelum Scan QR Faktur Pajak'
                     />
                     <button type='submit' className='btn btn-accent'>
                         Validate
@@ -50,10 +54,35 @@ export default function Home() {
                 <button className='btn btn-outline btn-accent'>Export</button>
             </div>
             <div className='flex justify-end px-10 py-4'>
-                <p>Jumlah Data : </p>
+                <p>Jumlah Data : {table.length} </p>
             </div>
             <div className='flex justify-center'>
-                <TableFaktur data={table} refTable={refTable} />
+                {table.length > 0 && (
+                    <TableFaktur data={table} refTable={refTable} />
+                )}
+
+                {table.length === 0 && (
+                    <div className='alert alert-warning justify-center w-8/12'>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='1.5'
+                            stroke='currentColor'
+                            className='w-6 h-6'
+                        >
+                            <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z'
+                            />
+                        </svg>
+
+                        <p className='text-2xl'>
+                            Silahkan Scan QR Faktur Pajak
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );
