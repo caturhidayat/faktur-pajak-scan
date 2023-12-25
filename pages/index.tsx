@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useRef } from "react";
 import TableFaktur from "@/components/TableFaktur";
 import * as xlsx from "xlsx";
+import Footer from "@/components/Footer";
 
 export default function Home() {
     // table state type is like a TableFakturProps
@@ -81,10 +82,12 @@ export default function Home() {
                 </div>
             </form>
             <div className='flex justify-end px-10 py-4'>
+
                 <button
                     onClick={handleExport}
                     className='btn btn-outline btn-accent'
                 >
+
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -103,7 +106,15 @@ export default function Home() {
                 </button>
             </div>
             <div className='flex justify-end px-10 py-4'>
-                <p>Jumlah Data : {table.length} </p>
+                <p
+                    className={
+                        table.length === 0
+                            ? "badge badge-warning"
+                            : "badge badge-accent"
+                    }
+                >
+                    Jumlah Data : {table.length}{" "}
+                </p>
             </div>
             <div className='flex justify-center'>
                 {table.length > 0 && (
