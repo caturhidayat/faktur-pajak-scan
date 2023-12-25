@@ -7,8 +7,8 @@ export default function TableFaktur(props: {
 }) {
     const { data } = props;
     return (
-        <div className='overflow-x-auto '>
-            <table className='table table-xs'>
+        <div className='overflow-x-auto h-96'>
+            <table className='table table-xs table-pin-rows table-zebra'>
                 <thead>
                     <tr>
                         <th>NO</th>
@@ -31,7 +31,7 @@ export default function TableFaktur(props: {
                 <tbody>
                     {data.map((item: TableFakturProps, index: number) => {
                         return (
-                            <tr key={index}>
+                            <tr key={index} className="hover">
                                 <td>{index + 1}</td>
                                 <td>{item["FM"]}</td>
                                 <td>{item["KD JENIS TRANSAKSI"]}</td>
