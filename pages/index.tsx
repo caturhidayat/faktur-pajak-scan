@@ -82,7 +82,12 @@ export default function Home() {
                 </div>
             </form>
             <div className='flex justify-end px-10 py-4'>
-                <button onClick={handleExport} className='btn btn-primary'>
+
+                <button
+                    onClick={handleExport}
+                    className='btn btn-outline btn-accent'
+                >
+
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
