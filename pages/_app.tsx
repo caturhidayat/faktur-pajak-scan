@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-
+import { Analytics } from "@vercel/analytics/react";
 export default function App({ Component, pageProps }: AppProps) {
     return (
         <main className='h-screen'>
@@ -12,9 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
             <div className='container px-4'>
                 <Component {...pageProps} />
             </div>
-            <div className="fixed left-0 bottom-0 w-full">
+            <div className='fixed left-0 bottom-0 w-full'>
                 <Footer />
             </div>
+            <Analytics />
         </main>
     );
 }

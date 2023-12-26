@@ -7,15 +7,15 @@ export default function TableFaktur(props: {
 }) {
     const { data } = props;
     return (
-        <div className='overflow-x-auto h-96'>
+        <div className='overflow-x-auto h-80'>
             <table className='table table-xs table-pin-rows table-zebra'>
                 <thead>
                     <tr>
                         <th>NO</th>
                         <th>FM</th>
-                        <th>KD JENIS</th>
-                        <th>FG PENGGANTI</th>
-                        <th>NOMOR FAKTUR</th>
+                        <th>JENIS</th>
+                        <th>FGP</th>
+                        <th>NO FAKTUR</th>
                         <th>MASA</th>
                         <th>TAHUN</th>
                         <th>TANGGAL</th>
