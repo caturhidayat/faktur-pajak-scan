@@ -85,7 +85,7 @@ export default function Home() {
                 {table.length > 0 && (
                     <button
                         onClick={handleExport}
-                        className='btn btn-outline btn-accent'
+                        className='btn btn-neutral'
                     >
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
