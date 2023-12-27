@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 
 export default function Home() {
     return (
@@ -11,20 +12,21 @@ export default function Home() {
                 <Image
                     src='https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg'
                     className='max-w-sm rounded-lg shadow-2xl'
-                    alt="Hero"
-                    width={'300'}
-                    height={'500'}
+                    alt='Hero'
+                    width={"300"}
+                    height={"500"}
                 />
-                <div>
-                    <h1 className='text-5xl font-bold'>Box Office News!</h1>
+                <div className="mx-8">
+                    <h1 className='text-5xl font-bold'>Noitra! ✨</h1>
                     <p className='py-6'>
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                        assumenda excepturi exercitationem quasi. In deleniti
-                        eaque aut repudiandae et a id nisi.
+                        Scan QR Code Faktur Pajak dengan mudah dan cepat
+                        menggunakan Noitra!
                     </p>
-                    <button className='btn btn-primary'>Get Started</button>
+                    <Link href='/efaktur'>
+                        <button className='btn btn-warning'>Get Started</button>
+                    </Link>
                 </div>
-            h</div>
+            </div>
         </div>
     );
 }
