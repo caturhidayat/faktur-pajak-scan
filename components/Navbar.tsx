@@ -15,7 +15,7 @@ export default function Navbar() {
                     </Link>
                 </div>
                 <Link href={"/efaktur"} className='btn btn-ghost'>
-                    Scan faktur
+                    Scan Faktur
                 </Link>
             </div>
         </div>
