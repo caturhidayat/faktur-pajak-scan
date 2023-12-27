@@ -7,7 +7,7 @@ export default function TableFaktur(props: {
 }) {
     const { data } = props;
     return (
-        <div className='overflow-x-auto h-90'>
+        <div className='overflow-x-auto max-h-96'>
             <table className='table table-xs table-pin-rows table-zebra'>
                 <thead>
                     <tr>
