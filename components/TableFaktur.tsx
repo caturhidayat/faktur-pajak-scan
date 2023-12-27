@@ -7,7 +7,7 @@ export default function TableFaktur(props: {
 }) {
     const { data } = props;
     return (
-        <div className='overflow-x-auto h-80'>
+        <div className='overflow-x-auto h-90'>
             <table className='table table-xs table-pin-rows table-zebra'>
                 <thead>
                     <tr>
@@ -25,13 +25,12 @@ export default function TableFaktur(props: {
                         <th>DPP</th>
                         <th>PPN</th>
                         <th>PPNBM</th>
-                        <th>IS CREDITABLE</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((item: TableFakturProps, index: number) => {
                         return (
-                            <tr key={index} className="hover">
+                            <tr key={index} className='hover'>
                                 <td>{index + 1}</td>
                                 <td>{item["FM"]}</td>
                                 <td>{item["KD JENIS TRANSAKSI"]}</td>
@@ -51,7 +50,6 @@ export default function TableFaktur(props: {
                                 <td>{Number(item["JUMLAH DPP"])}</td>
                                 <td>{Number(item["JUMLAH PPN"])}</td>
                                 <td>{Number(item["JUMLAH PPNBM"])}</td>
-                                <td>{item["IS CREDITABLE"]}</td>
                             </tr>
                         );
                     })}
@@ -60,4 +58,3 @@ export default function TableFaktur(props: {
         </div>
     );
 }
-
