@@ -51,7 +51,7 @@ export default function Page() {
             <form onSubmit={formik.handleSubmit}>
                 <div className='flex gap-4 justify-center'>
                     <input
-                        className='input input-info border-2 w-6/12'
+                        className='input input-warning border-2 w-6/12'
                         type='text'
                         name='urlValidate'
                         id='urlValidate'
@@ -62,7 +62,7 @@ export default function Page() {
                         disabled={formik.isSubmitting}
                     />
 
-                    <button type='submit' className='btn btn-info'>
+                    <button type='submit' className='btn btn-warning'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
@@ -87,7 +87,7 @@ export default function Page() {
             </form>
             <div className='flex justify-end px-10 py-4'>
                 {table.length > 0 && (
-                    <button onClick={handleExport} className='btn btn-accent'>
+                    <button onClick={handleExport} className='btn btn-primary'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
@@ -123,13 +123,13 @@ export default function Page() {
                 )}
 
                 {table.length === 0 && (
-                    <div className='alert alert-warning justify-center w-5/12 shadow-lg'>
+                    <div className='alert bg-base-200 justify-center w-5/12 shadow-lg'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
                             viewBox='0 0 24 24'
                             strokeWidth='1.5'
-                            stroke='currentColor'
+                            stroke='red'
                             className='w-6 h-6'
                         >
                             <path
