@@ -25,6 +25,7 @@ export default function TableFaktur(props: {
                         <th>DPP</th>
                         <th>PPN</th>
                         <th>PPNBM</th>
+                        <th>IS CREDITABLE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@ export default function TableFaktur(props: {
                                 <td>{Number(item["JUMLAH DPP"])}</td>
                                 <td>{Number(item["JUMLAH PPN"])}</td>
                                 <td>{Number(item["JUMLAH PPNBM"])}</td>
+                                <td>{item["IS CREDITABLE"]}</td>
                             </tr>
                         );
                     })}

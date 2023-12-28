@@ -25,6 +25,13 @@ export default async function handler(
                     // console.log({1: result});
                     resolve(result);
                 });
+                // Check Approval Status, if status "Faktur valid, Sudah Diapprove oleh DJP" then "IS CREDITABLE" = "1", else "IS CREDITABLE" = "0"
+                if (result.resValidateFakturPm.statusApproval === "Faktur Valid, Sudah Diapprove oleh DJP") {
+                    result.resValidateFakturPm.statusApproval = "1";
+                } else {
+                    result.resValidateFakturPm.statusApproval = "0";
+                }
+
                 const [day, month, year] = result.resValidateFakturPm.tanggalFaktur.split("/");
                 const results = {
                     FM: "FM",
@@ -40,6 +47,7 @@ export default async function handler(
                     "JUMLAH DPP": result.resValidateFakturPm.jumlahDpp,
                     "JUMLAH PPN": result.resValidateFakturPm.jumlahPpn,
                     "JUMLAH PPNBM": result.resValidateFakturPm.jumlahPpnBm,
+                    "IS CREDITABLE": result.resValidateFakturPm.statusApproval,
                 }
                 // console.log({2: result.resValidateFakturPm});
                 res.status(200).json(results);
