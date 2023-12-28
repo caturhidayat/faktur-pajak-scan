@@ -138,7 +138,7 @@ export default function Page() {
             </div>
             <div className='flex justify-center'>
                 {table.length > 0 && (
-                    <TableFaktur data={table} refTable={refTable} />
+                    <TableFaktur data={table} refTable={refTable} setTable={setTable} />
                 )}
 
                 {table.length === 0 && (
