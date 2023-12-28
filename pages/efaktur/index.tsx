@@ -6,7 +6,6 @@ import Head from "next/head";
 import { useFormik } from "formik";
 import * as xlsx from "xlsx";
 
-
 export default function Page() {
     // table state type is like a TableFakturProps
     const [table, setTable] = useState<TableFakturProps[]>([]);
@@ -15,6 +14,7 @@ export default function Page() {
     const formik = useFormik({
         initialValues: {
             urlValidate: "",
+            typeFakturPajak: "",
         },
         onSubmit: async (values) => {
             const res = await fetch("/api/faktur", {
@@ -22,7 +22,10 @@ export default function Page() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ url: values.urlValidate }),
+                body: JSON.stringify({
+                    url: values.urlValidate,
+                    typeFaktur: values.typeFakturPajak,
+                }),
             });
             // console.log(res);
             const data = await res.json();
@@ -31,7 +34,8 @@ export default function Page() {
                 return [...prev, data];
             });
 
-            formik.resetForm();
+            // Reset only urlValidate input
+            formik.setFieldValue("urlValidate", "");
         },
     });
 
@@ -50,8 +54,23 @@ export default function Page() {
             </Head>
             <form onSubmit={formik.handleSubmit}>
                 <div className='flex gap-4 justify-center'>
+                    <select
+                        className='select select-primary border-2 max-w-xs'
+                        value={formik.values.typeFakturPajak}
+                        onChange={formik.handleChange}
+                        name='typeFakturPajak'
+                        disabled={formik.isSubmitting}
+                    >
+                        <option disabled value=''>
+                            -- Pilih Faktur Pajak --
+                        </option>
+                        <option value='PajakMasuk'>Faktur Pajak Masukan</option>
+                        <option value='PajakKeluar'>
+                            Faktur Pajak Keluaran
+                        </option>
+                    </select>
                     <input
-                        className='input input-warning border-2 w-6/12'
+                        className='input input-warning border-2 w-5/12'
                         type='text'
                         name='urlValidate'
                         id='urlValidate'
@@ -119,7 +138,7 @@ export default function Page() {
             </div>
             <div className='flex justify-center'>
                 {table.length > 0 && (
-                    <TableFaktur data={table} refTable={refTable} />
+                    <TableFaktur data={table} refTable={refTable} setTable={setTable} />
                 )}
 
                 {table.length === 0 && (
@@ -139,9 +158,7 @@ export default function Page() {
                             />
                         </svg>
 
-                        <p className='text-xl'>
-                            Silahkan Scan QR Faktur Pajak
-                        </p>
+                        <p className='text-xl'>Silahkan Scan QR Faktur Pajak</p>
                     </div>
                 )}
             </div>
