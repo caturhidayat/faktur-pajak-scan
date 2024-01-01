@@ -5,17 +5,26 @@ import { useState } from "react";
 import Head from "next/head";
 import { useFormik } from "formik";
 import * as xlsx from "xlsx";
+import * as yup from "yup";
 
 export default function Page() {
     // table state type is like a TableFakturProps
     const [table, setTable] = useState<TableFakturProps[]>([]);
 
+    // Validation Schema
+    const scanFakturValidation = yup.object().shape({
+        urlValidate: yup.string().url("URL tidak valid").required("Field harus diisi"),
+        typeFakturPajak: yup.string().required("Tipe Faktur Pajak harus diisi"),
+    });
+
     const refTable = useRef(null);
+    const refInput = useRef<HTMLInputElement>(null);
     const formik = useFormik({
         initialValues: {
             urlValidate: "",
             typeFakturPajak: "",
         },
+        validationSchema: scanFakturValidation,
         onSubmit: async (values) => {
             const res = await fetch("/api/faktur", {
                 method: "POST",
@@ -36,6 +45,11 @@ export default function Page() {
 
             // Reset only urlValidate input
             formik.setFieldValue("urlValidate", "");
+
+            // focus to urlValidate input
+            setTimeout(() => {
+                refInput.current?.focus();
+            }, 800);
         },
     });
 
@@ -54,32 +68,52 @@ export default function Page() {
             </Head>
             <form onSubmit={formik.handleSubmit}>
                 <div className='flex gap-4 justify-center'>
-                    <select
-                        className='select select-primary border-2 max-w-xs'
-                        value={formik.values.typeFakturPajak}
-                        onChange={formik.handleChange}
-                        name='typeFakturPajak'
-                        disabled={formik.isSubmitting}
-                    >
-                        <option disabled value=''>
-                            -- Pilih Faktur Pajak --
-                        </option>
-                        <option value='PajakMasuk'>Faktur Pajak Masukan</option>
-                        <option value='PajakKeluar'>
-                            Faktur Pajak Keluaran
-                        </option>
-                    </select>
-                    <input
-                        className='input input-warning border-2 w-5/12'
-                        type='text'
-                        name='urlValidate'
-                        id='urlValidate'
-                        ref={refTable}
-                        onChange={formik.handleChange}
-                        value={formik.values.urlValidate}
-                        placeholder='Klik disini Sebelum Scan QR Faktur Pajak'
-                        disabled={formik.isSubmitting}
-                    />
+                    <label className=''>
+                        <select
+                            className='select select-primary border-2 max-w-xs'
+                            value={formik.values.typeFakturPajak}
+                            onChange={formik.handleChange}
+                            name='typeFakturPajak'
+                            disabled={formik.isSubmitting}
+                        >
+                            <option disabled value=''>
+                                -- Pilih Faktur Pajak --
+                            </option>
+                            <option value='PajakMasuk'>
+                                Faktur Pajak Masukan
+                            </option>
+                            <option value='PajakKeluar'>
+                                Faktur Pajak Keluaran
+                            </option>
+                        </select>
+                        {formik.errors.typeFakturPajak && formik.touched.typeFakturPajak ? (
+                            <div className='label'>
+                                <span className='label label-text-alt text-error'>
+                                    {formik.errors.typeFakturPajak}
+                                </span>
+                            </div>
+                        ) : null}
+                    </label>
+                    <label className='w-6/12'>
+                        <input
+                            className='input input-warning border-2 w-full'
+                            type='text'
+                            name='urlValidate'
+                            id='urlValidate'
+                            ref={refInput}
+                            onChange={formik.handleChange}
+                            value={formik.values.urlValidate}
+                            placeholder='Klik disini Sebelum Scan QR Faktur Pajak'
+                            disabled={formik.isSubmitting}
+                        />
+                        {formik.errors.urlValidate && formik.touched.urlValidate ? (
+                            <div className='label'>
+                                <span className='label label-text-alt text-error'>
+                                    {formik.errors.urlValidate}
+                                </span>
+                            </div>
+                        ) : null}
+                    </label>
 
                     <button type='submit' className='btn btn-warning'>
                         <svg
@@ -138,7 +172,11 @@ export default function Page() {
             </div>
             <div className='flex justify-center'>
                 {table.length > 0 && (
-                    <TableFaktur data={table} refTable={refTable} setTable={setTable} />
+                    <TableFaktur
+                        data={table}
+                        refTable={refTable}
+                        setTable={setTable}
+                    />
                 )}
 
                 {table.length === 0 && (
