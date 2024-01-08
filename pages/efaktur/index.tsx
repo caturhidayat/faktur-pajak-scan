@@ -67,8 +67,8 @@ export default function Page() {
                 <title>Scan eFaktur</title>
             </Head>
             <form onSubmit={formik.handleSubmit}>
-                <div className='flex gap-4 justify-center'>
-                    <label className=''>
+                <div className='flex flex-wrap md:flex-shrink-0 gap-4 md:justify-center'>
+                    <label>
                         <select
                             className='select select-primary border-2 max-w-xs'
                             value={formik.values.typeFakturPajak}
@@ -94,7 +94,7 @@ export default function Page() {
                             </div>
                         ) : null}
                     </label>
-                    <label className='w-6/12'>
+                    <label className='md:w-6/12'>
                         <input
                             className='input input-warning border-2 w-full'
                             type='text'
