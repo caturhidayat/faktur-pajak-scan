@@ -13,7 +13,10 @@ export default function Page() {
 
     // Validation Schema
     const scanFakturValidation = yup.object().shape({
-        urlValidate: yup.string().url("URL tidak valid").required("Field harus diisi"),
+        urlValidate: yup
+            .string()
+            .url("URL tidak valid")
+            .required("Field harus diisi"),
         typeFakturPajak: yup.string().required("Tipe Faktur Pajak harus diisi"),
     });
 
@@ -86,7 +89,8 @@ export default function Page() {
                                 Faktur Pajak Keluaran
                             </option>
                         </select>
-                        {formik.errors.typeFakturPajak && formik.touched.typeFakturPajak ? (
+                        {formik.errors.typeFakturPajak &&
+                            formik.touched.typeFakturPajak ? (
                             <div className='label'>
                                 <span className='label label-text-alt text-error'>
                                     {formik.errors.typeFakturPajak}
@@ -106,7 +110,8 @@ export default function Page() {
                             placeholder='Klik disini Sebelum Scan QR Faktur Pajak'
                             disabled={formik.isSubmitting}
                         />
-                        {formik.errors.urlValidate && formik.touched.urlValidate ? (
+                        {formik.errors.urlValidate &&
+                            formik.touched.urlValidate ? (
                             <div className='label'>
                                 <span className='label label-text-alt text-error'>
                                     {formik.errors.urlValidate}
