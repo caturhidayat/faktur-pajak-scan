@@ -2,8 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['daisyui.com'],
-  }
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'daisyui.com',
+      },
+    ],
+  },
+  output: "standalone"
 }
 
 module.exports = nextConfig
